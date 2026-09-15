@@ -1,0 +1,62 @@
+=== Problem 1: Type Arithmetic and auto ===
+[Part 1] auto type deduction
+7 / 2 = 3
+7.0 / 2 = 3.5
+(double)7 / 2 = 3.5
+[Part 2] Functions
+add(3, 4) = 7
+divide(7, 2) = 3
+toDouble(7, 2) = 3.5
+[Part 3] char arithmetic
+'A' as int = 65
+'A' + 32 as int = 97
+(char)('A' + 32) = a
+[Part 4] unsigned overflow
+(unsigned char)(250 + 10) = 4
+=== Problem 2: struct and Flow Control ===
+[Part 1] Most expensive product
+Name: Wine
+Price: 12.99
+[Part 2] Products with quantity > 50
+Count: 3
+[Part 3] Total inventory value
+Total: 1275.30
+[Part 4] Price category
+Milk: cheap
+Bread: medium
+Wine: expensive
+Cheese: medium
+Butter: medium
+=== Problem 3: Pointer ===
+[Part 1] Address and dereference
+val = 42
+*ptr = 42
+After *ptr = 100, val = 100
+[Part 2] increment
+After increment, x = 11
+After 2nd increment, x = 12
+[Part 3] findMax
+Max value = 8
+Max index = 2
+[Part 4] mySwap
+Before: a = 5, b = 8
+After: a = 8, b = 5
+[Part 5] nullptr
+Pointer is null
+Pointer is not null
+=== Problem 4: Integrated ===
+[Part 1] Compute averages
+Emma: 87.67
+Frank: 57.67
+Grace: 70.00
+Henry: 47.67
+[Part 2] Top student
+Name: Emma
+Average: 87.67
+[Part 3] After bonus (threshold=65, bonus=10)
+Emma: 87.67
+Frank: 67.67
+Grace: 70.00
+Henry: 57.67
+[Part 4] Direct modification via pointer
+Emma new average: 91.00

@@ -1,0 +1,15 @@
+5
+Apple 100 1.50
+Banana 30 0.80
+Cherry 15 5.00
+Date 50 3.20
+Elderberry 8 7.50
+20
+5
+3 7 1 9 4
+4
+Alice 80 75 90
+Bob 60 55 70
+Charlie 95 88 92
+Diana 70 65 80
+75.0 5

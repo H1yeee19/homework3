@@ -1,0 +1,48 @@
+#!/bin/bash
+# Homework 2 — 문제별 채점 (3개 테스트 케이스 기준)
+
+g++ main.cpp problem1.cpp problem2.cpp problem3.cpp problem4.cpp \
+    -o hw2_main -std=c++17 2>/dev/null
+if [ $? -ne 0 ]; then
+    echo "Compile Error"
+    exit 1
+fi
+
+for j in 1 2 3; do
+    ./hw2_main Test/case${j}.txt > Test/output${j}.txt 2>/dev/null
+    if [ $? -ne 0 ]; then
+        echo "Runtime Error (case${j})"
+        rm -f hw2_main
+        exit 1
+    fi
+done
+rm -f hw2_main
+
+# 특정 문제의 섹션만 추출
+extract() {
+    local file=$1 i=$2 next=$((i + 1))
+    if [ $i -lt 4 ]; then
+        awk "/=== Problem $i:/{f=1} /=== Problem $next:/{if(f) exit} f{print}" "$file" | tr -d '\r'
+    else
+        awk "/=== Problem $i:/{f=1} f{print}" "$file" | tr -d '\r'
+    fi
+}
+
+# 문제 i가 3개 테스트 케이스를 모두 통과하는지 확인
+check() {
+    local i=$1
+    for j in 1 2 3; do
+        [ "$(extract Test/output${j}.txt $i)" = "$(extract Test/expected${j}.txt $i)" ] || return 1
+    done
+}
+
+all_pass=true
+for i in 1 2 3 4; do
+    if check $i; then
+        echo "Problem $i: PASS"
+    else
+        echo "Problem $i: FAIL"
+        all_pass=false
+    fi
+done
+
