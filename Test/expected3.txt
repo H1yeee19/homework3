@@ -1,62 +1,57 @@
-=== Problem 1: Type Arithmetic and auto ===
-[Part 1] auto type deduction
-7 / 2 = 3
-7.0 / 2 = 3.5
-(double)7 / 2 = 3.5
-[Part 2] Functions
-add(3, 4) = 7
-divide(7, 2) = 3
-toDouble(7, 2) = 3.5
-[Part 3] char arithmetic
-'A' as int = 65
-'A' + 32 as int = 97
-(char)('A' + 32) = a
-[Part 4] unsigned overflow
-(unsigned char)(250 + 10) = 4
-=== Problem 2: struct and Flow Control ===
-[Part 1] Most expensive product
-Name: Steak
-Price: 20.00
-[Part 2] Products with quantity > 100
-Count: 3
-[Part 3] Total inventory value
-Total: 1020.00
-[Part 4] Price category
-Rice: cheap
-Salmon: expensive
-Tofu: cheap
-Steak: expensive
-Noodles: cheap
-=== Problem 3: Pointer ===
-[Part 1] Address and dereference
-val = 42
-*ptr = 42
-After *ptr = 100, val = 100
-[Part 2] increment
-After increment, x = 11
-After 2nd increment, x = 12
-[Part 3] findMax
-Max value = 15
-Max index = 3
-[Part 4] mySwap
-Before: a = 5, b = 8
-After: a = 8, b = 5
-[Part 5] nullptr
-Pointer is null
-Pointer is not null
+=== Problem 1: Reference ===
+[Part 1] Reference as alias
+val = 5
+ref = 5
+Same address: true
+After addViaRef(ref, 8): val = 13
+[Part 2] const reference
+sumByConstRef(5, 12) = 17
+const ref of val: 13
+Same address as val: true
+[Part 3] swap by reference
+Before: a = 5, b = 12
+After swapByRef: a = 12, b = 5
+[Part 4] Reference vs Pointer
+n = 12
+After incrementByRef(n): n = 13
+After incrementByPtr(&n): n = 14
+=== Problem 2: Parameter Passing ===
+[Part 1] Pass by value
+n = 3
+doubleByValue(n) = 6
+n after call: 3
+[Part 2] Pass by pointer
+Before: n = 3
+After doubleByPointer(&n): n = 6
+[Part 3] Pass by reference
+Before: n = 3
+After doubleByRef(n): n = 6
+[Part 4] Struct by reference
+Before: Apple 15 2.00
+After: Apple 40 3.50
+[Part 5] Const reference
+Apple 40 3.50
+=== Problem 3: Function Overloading ===
+[Part 1] Overloading — describe
+int: 9
+double: 3.00
+[Part 2] Return by reference
+arr: 5 10 15 20 25
+elementAt(arr, 5, 4) = 25
+After elementAt(arr, 5, 4) = 0: arr[4] = 0
 === Problem 4: Integrated ===
-[Part 1] Compute averages
-Iris: 97.67
-Jake: 77.67
-Kate: 62.33
-Leo: 87.67
-[Part 2] Top student
-Name: Iris
-Average: 97.67
-[Part 3] After bonus (threshold=80, bonus=3)
-Iris: 97.67
-Jake: 80.67
-Kate: 65.33
-Leo: 87.67
-[Part 4] Direct modification via pointer
-Iris new average: 97.67
+[Part 1] Print students
+ID: 3001  Score: 95
+ID: 3002  Score: 48
+ID: 3003  Score: 77
+ID: 3004  Score: 63
+[Part 2] isPassed (passing score = 75)
+3001: passed
+3002: failed
+3003: passed
+3004: failed
+[Part 3] Update score
+Before: ID: 3002  Score: 48
+After: ID: 3002  Score: 80
+[Part 4] Top scorer
+ID: 3001  Score: 95

@@ -1,9 +1,9 @@
 /*
- * Homework 2 — main.cpp
+ * Homework 3 — main.cpp
  * 이 파일은 수정하지 마세요.
  * problem1.cpp ~ problem4.cpp 에 있는 TODO 함수만 구현하세요.
  *
- * 실행: ./hw2_main Test/case1.txt
+ * 실행: ./hw3_main Test/case1.txt
  */
 #include <iostream>
 #include <fstream>
@@ -11,38 +11,41 @@
 #include <string>
 using namespace std;
 
-struct Product {
-    string name;
-    int    quantity;
-    double price;
+struct Record {
+    string label;
+    int    count;
+    double rate;
 };
 
 struct Student {
-    string name;
-    int    scores[3];
-    double average;
+    int id;
+    int score;
 };
 
 // ── Forward declarations: problem1.cpp ────────────────────────
-int    add(int a, int b);
-int    divide(int a, int b);
-double toDouble(int a, int b);
+void addViaRef(int& r, int delta);
+int  sumByConstRef(const int& a, const int& b);
+void swapByRef(int& a, int& b);
+void incrementByRef(int& r);
+void incrementByPtr(int* p);
 
 // ── Forward declarations: problem2.cpp ────────────────────────
-int    findMostExpensive(Product products[], int n);
-int    countAboveThreshold(Product products[], int n, int threshold);
-double totalValue(Product products[], int n);
-string priceCategory(double price);
+int  doubleByValue(int n);
+void doubleByPointer(int* p);
+void doubleByRef(int& n);
+void updateRecord(Record& r, int newCount, double newRate);
+void printRecord(const Record& r);
 
 // ── Forward declarations: problem3.cpp ────────────────────────
-void   increment(int* p);
-int*   findMax(int* arr, int n);
-void   mySwap(int* a, int* b);
+void describe(int x);
+void describe(double x);
+int& elementAt(int* arr, int n, int i);
 
 // ── Forward declarations: problem4.cpp ────────────────────────
-void     computeAverage(Student* s);
-Student* findTopStudent(Student* students, int n);
-void     applyBonus(Student* students, int n, double threshold, int bonus);
+void     updateScore(Student& student, int newScore);
+bool     isPassed(const Student& student, int passingScore);
+void     printStudent(const Student& student);
+Student& findTopScorer(Student* students, int n);
 
 // ─────────────────────────────────────────────────────────────
 int main(int argc, char* argv[]) {
@@ -57,160 +60,140 @@ int main(int argc, char* argv[]) {
     }
 
     // ── Read test data ────────────────────────────────────────
-    const int MAX_N = 50;
+    const int MAX_N   = 50;
+    const int ARR_LEN = 5;
 
-    int np; fin >> np;
-    Product products[MAX_N];
-    for (int i = 0; i < np; i++)
-        fin >> products[i].name >> products[i].quantity >> products[i].price;
+    // Problem 1
+    int p1a, p1b, p1delta;
+    fin >> p1a >> p1b >> p1delta;
 
-    int countThreshold; fin >> countThreshold;
+    // Problem 2
+    int    p2n;
+    fin >> p2n;
+    Record rec;
+    int    newCount;
+    double newRate;
+    fin >> rec.label >> rec.count >> rec.rate >> newCount >> newRate;
 
-    int k; fin >> k;
-    int arr[MAX_N];
-    for (int i = 0; i < k; i++) fin >> arr[i];
+    // Problem 3
+    int    p3int;
+    double p3dbl;
+    fin >> p3int >> p3dbl;
+    int p3arr[ARR_LEN];
+    for (int i = 0; i < ARR_LEN; i++) fin >> p3arr[i];
+    int p3idx, p3newval;
+    fin >> p3idx >> p3newval;
 
+    // Problem 4
     int ns; fin >> ns;
     Student students[MAX_N];
-    for (int i = 0; i < ns; i++) {
-        fin >> students[i].name
-            >> students[i].scores[0]
-            >> students[i].scores[1]
-            >> students[i].scores[2];
-        students[i].average = 0.0;
-    }
-
-    double bonusThreshold; int bonus;
-    fin >> bonusThreshold >> bonus;
+    for (int i = 0; i < ns; i++) fin >> students[i].id >> students[i].score;
+    int passingScore, updateIdx, newScore;
+    fin >> passingScore >> updateIdx >> newScore;
     fin.close();
 
-    // ══ Problem 1: Type Arithmetic and auto ══════════════════
-    cout << "=== Problem 1: Type Arithmetic and auto ===" << "\n";
-    cout << fixed << setprecision(1);
+    // ══ Problem 1: Reference ══════════════════════════════════
+    cout << "=== Problem 1: Reference ===" << "\n";
     {
-        cout << "[Part 1] auto type deduction" << "\n";
-        auto x = 7 / 2;
-        auto y = 7.0 / 2;
-        auto z = static_cast<double>(7) / 2;
-        cout << "7 / 2 = " << x << "\n";
-        cout << "7.0 / 2 = " << y << "\n";
-        cout << "(double)7 / 2 = " << z << "\n";
-
-        cout << "[Part 2] Functions" << "\n";
-        cout << "add(3, 4) = " << add(3, 4) << "\n";
-        cout << "divide(7, 2) = " << divide(7, 2) << "\n";
-        cout << "toDouble(7, 2) = " << toDouble(7, 2) << "\n";
-
-        cout << "[Part 3] char arithmetic" << "\n";
-        char c = 'A';
-        auto asInt   = static_cast<int>(c);
-        auto shifted = c + 32;
-        cout << "'A' as int = " << asInt << "\n";
-        cout << "'A' + 32 as int = " << shifted << "\n";
-        cout << "(char)('A' + 32) = " << static_cast<char>(c + 32) << "\n";
-
-        cout << "[Part 4] unsigned overflow" << "\n";
-        unsigned char uc = 250;
-        unsigned char result = static_cast<unsigned char>(uc + 10);
-        cout << "(unsigned char)(250 + 10) = " << static_cast<int>(result) << "\n";
-    }
-
-    // ══ Problem 2: struct and Flow Control ═══════════════════
-    cout << "=== Problem 2: struct and Flow Control ===" << "\n";
-    cout << fixed << setprecision(2);
-    {
-        cout << "[Part 1] Most expensive product" << "\n";
-        int idx = findMostExpensive(products, np);
-        cout << "Name: " << products[idx].name << "\n";
-        cout << "Price: " << products[idx].price << "\n";
-
-        cout << "[Part 2] Products with quantity > " << countThreshold << "\n";
-        cout << "Count: " << countAboveThreshold(products, np, countThreshold) << "\n";
-
-        cout << "[Part 3] Total inventory value" << "\n";
-        cout << "Total: " << totalValue(products, np) << "\n";
-
-        cout << "[Part 4] Price category" << "\n";
-        for (int i = 0; i < np; i++)
-            cout << products[i].name << ": " << priceCategory(products[i].price) << "\n";
-    }
-
-    // ══ Problem 3: Pointer ════════════════════════════════════
-    cout << "=== Problem 3: Pointer ===" << "\n";
-    {
-        cout << "[Part 1] Address and dereference" << "\n";
-        int val = 42;
-        int* ptr = &val;
+        cout << "[Part 1] Reference as alias" << "\n";
+        int val = p1a;
+        int& ref = val;
         cout << "val = " << val << "\n";
-        cout << "*ptr = " << *ptr << "\n";
-        *ptr = 100;
-        cout << "After *ptr = 100, val = " << val << "\n";
+        cout << "ref = " << ref << "\n";
+        cout << "Same address: " << (&val == &ref ? "true" : "false") << "\n";
+        addViaRef(ref, p1delta);
+        cout << "After addViaRef(ref, " << p1delta << "): val = " << val << "\n";
 
-        cout << "[Part 2] increment" << "\n";
-        int x = 10;
-        increment(&x);
-        cout << "After increment, x = " << x << "\n";
-        increment(&x);
-        cout << "After 2nd increment, x = " << x << "\n";
+        cout << "[Part 2] const reference" << "\n";
+        cout << "sumByConstRef(" << p1a << ", " << p1b << ") = "
+             << sumByConstRef(p1a, p1b) << "\n";
+        const int& cr = val;
+        cout << "const ref of val: " << cr << "\n";
+        cout << "Same address as val: " << (&val == &cr ? "true" : "false") << "\n";
 
-        cout << "[Part 3] findMax" << "\n";
-        int* maxPtr = findMax(arr, k);
-        if (maxPtr != nullptr) {
-            cout << "Max value = " << *maxPtr << "\n";
-            cout << "Max index = " << (maxPtr - arr) << "\n";
-        } else {
-            cout << "Not found" << "\n";
-        }
-
-        cout << "[Part 4] mySwap" << "\n";
-        int a = 5, b = 8;
+        cout << "[Part 3] swap by reference" << "\n";
+        int a = p1a, b = p1b;
         cout << "Before: a = " << a << ", b = " << b << "\n";
-        mySwap(&a, &b);
-        cout << "After: a = " << a << ", b = " << b << "\n";
+        swapByRef(a, b);
+        cout << "After swapByRef: a = " << a << ", b = " << b << "\n";
 
-        cout << "[Part 5] nullptr" << "\n";
-        int* nullPtr = nullptr;
-        if (nullPtr == nullptr)
-            cout << "Pointer is null" << "\n";
-        else
-            cout << "Pointer is not null" << "\n";
-        nullPtr = &val;
-        if (nullPtr == nullptr)
-            cout << "Pointer is null" << "\n";
-        else
-            cout << "Pointer is not null" << "\n";
+        cout << "[Part 4] Reference vs Pointer" << "\n";
+        int n = p1b;
+        cout << "n = " << n << "\n";
+        incrementByRef(n);
+        cout << "After incrementByRef(n): n = " << n << "\n";
+        incrementByPtr(&n);
+        cout << "After incrementByPtr(&n): n = " << n << "\n";
     }
 
-    // ══ Problem 4: Integrated ═════════════════════════════════
-    cout << "=== Problem 4: Integrated ===" << "\n";
+    // ══ Problem 2: Parameter Passing ══════════════════════════
+    cout << "=== Problem 2: Parameter Passing ===" << "\n";
     cout << fixed << setprecision(2);
     {
-        cout << "[Part 1] Compute averages" << "\n";
-        for (int i = 0; i < ns; i++) {
-            computeAverage(&students[i]);
-            cout << students[i].name << ": " << students[i].average << "\n";
-        }
+        cout << "[Part 1] Pass by value" << "\n";
+        int n = p2n;
+        cout << "n = " << n << "\n";
+        cout << "doubleByValue(n) = " << doubleByValue(n) << "\n";
+        cout << "n after call: " << n << "\n";
 
-        cout << "[Part 2] Top student" << "\n";
-        Student* top = findTopStudent(students, ns);
-        if (top != nullptr) {
-            cout << "Name: " << top->name << "\n";
-            cout << "Average: " << top->average << "\n";
-        }
+        cout << "[Part 2] Pass by pointer" << "\n";
+        n = p2n;
+        cout << "Before: n = " << n << "\n";
+        doubleByPointer(&n);
+        cout << "After doubleByPointer(&n): n = " << n << "\n";
 
-        cout << "[Part 3] After bonus (threshold=" << (int)bonusThreshold
-             << ", bonus=" << bonus << ")" << "\n";
-        applyBonus(students, ns, bonusThreshold, bonus);
-        for (int i = 0; i < ns; i++) {
-            computeAverage(&students[i]);
-            cout << students[i].name << ": " << students[i].average << "\n";
-        }
+        cout << "[Part 3] Pass by reference" << "\n";
+        n = p2n;
+        cout << "Before: n = " << n << "\n";
+        doubleByRef(n);
+        cout << "After doubleByRef(n): n = " << n << "\n";
 
-        cout << "[Part 4] Direct modification via pointer" << "\n";
-        Student* sptr = &students[0];
-        sptr->scores[0] = 100;
-        computeAverage(sptr);
-        cout << sptr->name << " new average: " << sptr->average << "\n";
+        cout << "[Part 4] Struct by reference" << "\n";
+        cout << "Before: " << rec.label << " " << rec.count << " " << rec.rate << "\n";
+        updateRecord(rec, newCount, newRate);
+        cout << "After: " << rec.label << " " << rec.count << " " << rec.rate << "\n";
+
+        cout << "[Part 5] Const reference" << "\n";
+        printRecord(rec);
+    }
+
+    // ══ Problem 3: Function Overloading ═══════════════════════
+    cout << "=== Problem 3: Function Overloading ===" << "\n";
+    {
+        cout << "[Part 1] Overloading — describe" << "\n";
+        describe(p3int);
+        describe(p3dbl);
+
+        cout << "[Part 2] Return by reference" << "\n";
+        cout << "arr:";
+        for (int i = 0; i < ARR_LEN; i++) cout << " " << p3arr[i];
+        cout << "\n";
+        cout << "elementAt(arr, " << ARR_LEN << ", " << p3idx << ") = "
+             << elementAt(p3arr, ARR_LEN, p3idx) << "\n";
+        elementAt(p3arr, ARR_LEN, p3idx) = p3newval;
+        cout << "After elementAt(arr, " << ARR_LEN << ", " << p3idx << ") = "
+             << p3newval << ": arr[" << p3idx << "] = " << p3arr[p3idx] << "\n";
+    }
+
+    // ══ Problem 4: Integrated ════════════════════════════════
+    cout << "=== Problem 4: Integrated ===" << "\n";
+    {
+        cout << "[Part 1] Print students" << "\n";
+        for (int i = 0; i < ns; i++) printStudent(students[i]);
+
+        cout << "[Part 2] isPassed (passing score = " << passingScore << ")" << "\n";
+        for (int i = 0; i < ns; i++)
+            cout << students[i].id << ": "
+                 << (isPassed(students[i], passingScore) ? "passed" : "failed") << "\n";
+
+        cout << "[Part 3] Update score" << "\n";
+        cout << "Before: "; printStudent(students[updateIdx]);
+        updateScore(students[updateIdx], newScore);
+        cout << "After: "; printStudent(students[updateIdx]);
+
+        cout << "[Part 4] Top scorer" << "\n";
+        Student& top = findTopScorer(students, ns);
+        printStudent(top);
     }
 
     return 0;

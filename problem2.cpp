@@ -1,61 +1,61 @@
 /*
- * Problem 2: struct and Flow Control
+ * Problem 2: Parameter Passing
  *
  * 학번:
  * 이름:
  *
  * ─────────────────────────────────────────────────────────────
- * 아래 네 함수를 완성하세요.
+ * 아래 다섯 함수를 완성하세요.
  *
- *  findMostExpensive(products, n)          : 가격이 가장 높은 상품의 인덱스를 반환합니다.
- *  countAboveThreshold(products, n, thr)   : quantity > thr 인 상품의 수를 반환합니다.
- *  totalValue(products, n)                 : 모든 상품의 총 가치(quantity * price 합)를 반환합니다.
- *  priceCategory(price)                    : 가격대 문자열을 반환합니다.
- *                                            price < 2.0  →  "cheap"
- *                                            price < 5.0  →  "medium"
- *                                            otherwise    →  "expensive"
+ *  doubleByValue(n)                   : n 의 2배를 계산합니다. (pass by value)
+ *  doubleByPointer(p)                 : *p 를 2배로 만듭니다. (pass by pointer)
+ *  doubleByRef(n)                     : n 을 2배로 만듭니다. (pass by reference)
+ *  updateRecord(r, newCount, newRate) : r 의 count, rate 필드를 갱신합니다.
+ *  printRecord(r)                     : r 의 label, count, rate 를 출력합니다.
  * ─────────────────────────────────────────────────────────────
  */
+#include <iostream>
+#include <iomanip>
 #include <string>
 using namespace std;
 
-struct Product {
-    string name;      // 상품 이름
-    int    quantity;  // 재고 수량
-    double price;     // 상품 가격 (단위: 달러)
+struct Record {
+    string label;
+    int    count;
+    double rate;
 };
 
-// TODO: 가격이 가장 높은 상품의 인덱스를 반환하세요.
-//   products : Product 구조체 배열 (원소 수: n)
-//   n        : 배열의 원소 수
-int findMostExpensive(Product products[], int n) {
+// n 의 2배를 반환합니다. (pass by value)
+//   n      : 정수 복사본
+//   반환값 : n * 2
+int doubleByValue(int n) {
     // TODO
     return 0;
 }
 
-// TODO: quantity 가 threshold 초과인 상품의 수를 반환하세요.
-//   products  : Product 구조체 배열 (원소 수: n)
-//   n         : 배열의 원소 수
-//   threshold : 기준 수량 — 이 값을 초과(>)하는 상품을 셉니다.
-int countAboveThreshold(Product products[], int n, int threshold) {
+// *p 를 2배로 만듭니다. (pass by pointer)
+//   p : 수정할 정수를 가리키는 포인터
+void doubleByPointer(int* p) {
     // TODO
-    return 0;
 }
 
-// TODO: 모든 상품의 총 가치(quantity * price 의 합)를 반환하세요.
-//   products : Product 구조체 배열 (원소 수: n)
-//   n        : 배열의 원소 수
-double totalValue(Product products[], int n) {
+// n 을 2배로 만듭니다. (pass by reference)
+//   n : 수정할 정수에 대한 참조
+void doubleByRef(int& n) {
     // TODO
-    return 0.0;
 }
 
-// TODO: 가격대에 따른 카테고리 문자열을 반환하세요.
-//   price : 상품의 가격 (double)
-//           price < 2.0  →  "cheap"
-//           price < 5.0  →  "medium"
-//           otherwise    →  "expensive"
-string priceCategory(double price) {
+// r 의 count 와 rate 필드를 갱신합니다.
+//   r        : 수정할 Record 에 대한 참조
+//   newCount : r.count 에 저장할 새 수량
+//   newRate  : r.rate 에 저장할 새 단가
+void updateRecord(Record& r, int newCount, double newRate) {
     // TODO
-    return "";
+}
+
+// r 의 label, count, rate 를 한 줄로 출력합니다.
+//   r : 읽기 전용 const 참조
+//   출력 형식: "<label> <count> <rate>\n"  (rate 는 소수점 2자리)
+void printRecord(const Record& r) {
+    // TODO
 }

@@ -1,50 +1,53 @@
 /*
- * Problem 4: Integrated — struct + pointer + loop + conditional
+ * Problem 4: Integrated — struct + reference + const reference + conditional
  *
  * 학번:
  * 이름:
  *
  * ─────────────────────────────────────────────────────────────
- * 아래 세 함수를 완성하세요.
+ * 아래 네 함수를 완성하세요.
  *
- *  computeAverage(s)           : s->scores[0..2] 의 평균을 s->average 에 저장합니다.
- *                                힌트: 3.0 으로 나눠야 실수 나눗셈이 됩니다.
- *  findTopStudent(students, n) : 평균이 가장 높은 학생의 포인터를 반환합니다.
- *                                n == 0 이면 nullptr 를 반환합니다.
- *  applyBonus(students, n, t, b) : average < t 인 학생의 scores[0..2] 에
- *                                   각각 b 를 더합니다.
- *                                   단, 각 점수는 100 을 초과할 수 없습니다.
+ *  updateScore(student, newScore)    : student 의 score 를 newScore 로 갱신합니다.
+ *  isPassed(student, passingScore)   : student.score >= passingScore 이면 true 를 반환합니다.
+ *  printStudent(student)             : student 의 id 와 score 를 출력합니다.
+ *  findTopScorer(students, n)        : score 가 가장 높은 학생의 참조를 반환합니다.
  * ─────────────────────────────────────────────────────────────
  */
-#include <string>
+#include <iostream>
 using namespace std;
 
 struct Student {
-    string name;
-    int    scores[3];
-    double average;
+    int id;
+    int score;
 };
 
-// TODO: s->scores[0..2] 의 평균을 s->average 에 저장하세요.
-//   s : 평균을 계산할 Student 를 가리키는 포인터 (null 이 아님을 보장)
-//       힌트: 3.0 으로 나눠야 실수 나눗셈이 됩니다.
-void computeAverage(Student* s) {
+// student 의 score 를 newScore 로 갱신합니다.
+//   student  : 수정할 Student 에 대한 참조
+//   newScore : 새 점수
+void updateScore(Student& student, int newScore) {
     // TODO
 }
 
-// TODO: average 가 가장 높은 학생의 포인터를 반환하세요.
-//   students : Student 구조체 배열의 첫 번째 원소를 가리키는 포인터
-//   n        : 배열의 원소 수  (n == 0 이면 nullptr 반환)
-Student* findTopStudent(Student* students, int n) {
+// student.score >= passingScore 이면 true, 미만이면 false 를 반환합니다.
+//   student      : 읽기 전용 const 참조
+//   passingScore : 합격 기준 점수
+bool isPassed(const Student& student, int passingScore) {
     // TODO
-    return nullptr;
+    return false;
 }
 
-// TODO: average < threshold 인 학생의 scores[i] 에 bonus 를 더하세요.
-//   students  : Student 구조체 배열의 첫 번째 원소를 가리키는 포인터
-//   n         : 배열의 원소 수
-//   threshold : 보너스 적용 기준 평균 — average 가 이 값 미만인 학생에게 적용
-//   bonus     : 각 점수에 더할 값  (각 점수는 100 을 초과할 수 없습니다)
-void applyBonus(Student* students, int n, double threshold, int bonus) {
+// student 의 id 와 score 를 출력합니다.
+//   student : 읽기 전용 const 참조
+//   출력 형식: "ID: <id>  Score: <score>\n"
+void printStudent(const Student& student) {
     // TODO
+}
+
+// score 가 가장 높은 학생의 참조를 반환합니다.
+//   students : Student 배열의 첫 번째 원소를 가리키는 포인터
+//   n        : 배열의 원소 수 (n >= 1)
+//   반환값   : 최고 점수 학생에 대한 Student&
+Student& findTopScorer(Student* students, int n) {
+    // TODO
+    return students[0];
 }

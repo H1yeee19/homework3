@@ -1,62 +1,55 @@
-=== Problem 1: Type Arithmetic and auto ===
-[Part 1] auto type deduction
-7 / 2 = 3
-7.0 / 2 = 3.5
-(double)7 / 2 = 3.5
-[Part 2] Functions
-add(3, 4) = 7
-divide(7, 2) = 3
-toDouble(7, 2) = 3.5
-[Part 3] char arithmetic
-'A' as int = 65
-'A' + 32 as int = 97
-(char)('A' + 32) = a
-[Part 4] unsigned overflow
-(unsigned char)(250 + 10) = 4
-=== Problem 2: struct and Flow Control ===
-[Part 1] Most expensive product
-Name: Elderberry
-Price: 7.50
-[Part 2] Products with quantity > 20
-Count: 3
-[Part 3] Total inventory value
-Total: 469.00
-[Part 4] Price category
-Apple: cheap
-Banana: cheap
-Cherry: expensive
-Date: medium
-Elderberry: expensive
-=== Problem 3: Pointer ===
-[Part 1] Address and dereference
-val = 42
-*ptr = 42
-After *ptr = 100, val = 100
-[Part 2] increment
-After increment, x = 11
-After 2nd increment, x = 12
-[Part 3] findMax
-Max value = 9
-Max index = 3
-[Part 4] mySwap
-Before: a = 5, b = 8
-After: a = 8, b = 5
-[Part 5] nullptr
-Pointer is null
-Pointer is not null
+=== Problem 1: Reference ===
+[Part 1] Reference as alias
+val = 3
+ref = 3
+Same address: true
+After addViaRef(ref, 5): val = 8
+[Part 2] const reference
+sumByConstRef(3, 8) = 11
+const ref of val: 8
+Same address as val: true
+[Part 3] swap by reference
+Before: a = 3, b = 8
+After swapByRef: a = 8, b = 3
+[Part 4] Reference vs Pointer
+n = 8
+After incrementByRef(n): n = 9
+After incrementByPtr(&n): n = 10
+=== Problem 2: Parameter Passing ===
+[Part 1] Pass by value
+n = 10
+doubleByValue(n) = 20
+n after call: 10
+[Part 2] Pass by pointer
+Before: n = 10
+After doubleByPointer(&n): n = 20
+[Part 3] Pass by reference
+Before: n = 10
+After doubleByRef(n): n = 20
+[Part 4] Struct by reference
+Before: Widgets 20 1.50
+After: Widgets 30 2.75
+[Part 5] Const reference
+Widgets 30 2.75
+=== Problem 3: Function Overloading ===
+[Part 1] Overloading — describe
+int: 4
+double: 2.50
+[Part 2] Return by reference
+arr: 1 2 3 4 5
+elementAt(arr, 5, 2) = 3
+After elementAt(arr, 5, 2) = 99: arr[2] = 99
 === Problem 4: Integrated ===
-[Part 1] Compute averages
-Alice: 81.67
-Bob: 61.67
-Charlie: 91.67
-Diana: 71.67
-[Part 2] Top student
-Name: Charlie
-Average: 91.67
-[Part 3] After bonus (threshold=75, bonus=5)
-Alice: 81.67
-Bob: 66.67
-Charlie: 91.67
-Diana: 76.67
-[Part 4] Direct modification via pointer
-Alice new average: 88.33
+[Part 1] Print students
+ID: 1001  Score: 85
+ID: 1002  Score: 60
+ID: 1003  Score: 90
+[Part 2] isPassed (passing score = 70)
+1001: passed
+1002: failed
+1003: passed
+[Part 3] Update score
+Before: ID: 1002  Score: 60
+After: ID: 1002  Score: 75
+[Part 4] Top scorer
+ID: 1003  Score: 90

@@ -1,32 +1,49 @@
 /*
- * Problem 1: Type Arithmetic and auto
+ * Problem 1: Reference
  *
  * 학번:
  * 이름:
  *
  * ─────────────────────────────────────────────────────────────
- * 아래 세 함수를 완성하세요.
+ * 아래 다섯 함수를 완성하세요.
  *
- *  add(a, b)      : a + b 를 정수로 반환합니다.
- *  divide(a, b)   : a / b 를 정수 나눗셈으로 반환합니다.
- *  toDouble(a, b) : a 를 static_cast<double> 로 변환한 뒤 b 로 나눈 결과를 반환합니다.
+ *  addViaRef(r, delta)  : r 이 참조하는 값에 delta 를 더합니다.
+ *  sumByConstRef(a, b)  : a + b 를 반환합니다.
+ *  swapByRef(a, b)      : a 와 b 가 참조하는 두 값을 교환합니다.
+ *  incrementByRef(r)    : r 이 참조하는 값을 1 증가시킵니다.
+ *  incrementByPtr(p)    : p 가 가리키는 값을 1 증가시킵니다.
  * ─────────────────────────────────────────────────────────────
  */
 
-// a, b : 더할 두 정수
-int add(int a, int b) {
+// r 이 참조하는 정수에 delta 를 더합니다.
+//   r     : 수정할 정수에 대한 참조
+//   delta : 더할 정수
+void addViaRef(int& r, int delta) {
+    // TODO
+}
+
+// a 와 b 의 합을 반환합니다.
+//   a, b   : 읽기 전용 const 참조
+//   반환값 : a + b
+int sumByConstRef(const int& a, const int& b) {
     // TODO
     return 0;
 }
 
-// a : 나뉨수 (dividend), b : 나눗수 (divisor)  — 정수 나눗셈으로 반환
-int divide(int a, int b) {
+// a 와 b 가 참조하는 두 정수 값을 교환합니다.
+//   a, b : 교환할 두 정수에 대한 참조
+void swapByRef(int& a, int& b) {
     // TODO
-    return 0;
 }
 
-// a : 실수로 변환할 정수, b : 나눗수 (divisor)
-double toDouble(int a, int b) {
+// r 이 참조하는 정수를 1 증가시킵니다.
+//   r : 수정할 정수에 대한 참조
+void incrementByRef(int& r) {
     // TODO
-    return 0.0;
+}
+
+// p 가 가리키는 정수를 1 증가시킵니다.
+//   p : 수정할 정수를 가리키는 포인터
+void incrementByPtr(int* p) {
+    // TODO
 }
