@@ -2,7 +2,7 @@
 # Homework 3 — 문제별 채점 (3개 테스트 케이스 기준)
 
 g++ main.cpp problem1.cpp problem2.cpp problem3.cpp problem4.cpp \
-    -o hw3_main -std=c++17 2>/dev/null
+    -o hw3_main -std=c++17
 if [ $? -ne 0 ]; then
     echo "Compile Error"
     exit 1
