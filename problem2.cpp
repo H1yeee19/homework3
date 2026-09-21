@@ -1,8 +1,8 @@
 /*
  * Problem 2: Parameter Passing
  *
- * 학번:
- * 이름:
+ * 학번: 202501772
+ * 이름: 유혜주
  *
  * ─────────────────────────────────────────────────────────────
  * 아래 다섯 함수를 완성하세요.
@@ -29,20 +29,20 @@ struct Record {
 //   n      : 정수 복사본
 //   반환값 : n * 2
 int doubleByValue(int n) {
-    // TODO
-    return 0;
+    n *= 2;
+    return n;
 }
 
 // *p 를 2배로 만듭니다. (pass by pointer)
 //   p : 수정할 정수를 가리키는 포인터
 void doubleByPointer(int* p) {
-    // TODO
+    (*p) *= 2;
 }
 
 // n 을 2배로 만듭니다. (pass by reference)
 //   n : 수정할 정수에 대한 참조
 void doubleByRef(int& n) {
-    // TODO
+    n *= 2;
 }
 
 // r 의 count 와 rate 필드를 갱신합니다.
@@ -50,12 +50,13 @@ void doubleByRef(int& n) {
 //   newCount : r.count 에 저장할 새 수량
 //   newRate  : r.rate 에 저장할 새 단가
 void updateRecord(Record& r, int newCount, double newRate) {
-    // TODO
+    r.count = newCount;
+    r.rate = newRate;
 }
 
 // r 의 label, count, rate 를 한 줄로 출력합니다.
 //   r : 읽기 전용 const 참조
 //   출력 형식: "<label> <count> <rate>\n"  (rate 는 소수점 2자리)
 void printRecord(const Record& r) {
-    // TODO
+    cout << r.label << " " << r.count << " " << fixed << setprecision(2) << r.rate << endl;
 }
